@@ -19,7 +19,7 @@ categories = Category.create([
   {name: 'Programming'}
 ])
 
-PASSWORD: ‘pass123’
+PASSWORD = 'pass123'
 
 User.create([
   {first_name: 'Jon', last_name: 'Snow', email: 'js@winterfell.gov', password: PASSWORD},

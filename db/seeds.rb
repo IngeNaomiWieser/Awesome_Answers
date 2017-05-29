@@ -27,6 +27,7 @@ User.create([
   {first_name: 'Cercei', last_name: 'Lannister', email: 'c@wkingslanding.gov', password: PASSWORD}
 ])
 
+users = User.all
 
 100.times do
   Question.create title: Faker::Hacker.say_something_smart,

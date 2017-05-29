@@ -18,9 +18,18 @@
     <!-- <a href='/'>Home</a> -->
    <!-- this ð will make a GET http request to `/` url -->
    |
-    <%= link_to 'All Questions', questions_path %>
+   <%= link_to 'All Questions', questions_path %>
+  |
+  <%= link_to('Contact Us', contact_url) %>
+  <% if user_signed_in? %>
+    Hello <%= current_user.first_name %>,
+    <%= link_to 'Log out', sessions_path, method: :delete %>
+  <% else %>
     |
-   <%= link_to('Contact Us', contact_path) %>
+    <%= link_to 'Log in', new_session_path %>
+    |
+    <%= link_to 'Sign Up', new_user_path %>
+  <% end %>
    <!-- <a href='/contact'>Contact Us</a> -->
    <hr>
 

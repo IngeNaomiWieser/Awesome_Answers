@@ -10,7 +10,7 @@ Category.destroy_all
 Answer.destroy_all
 Question.destroy_all
 
-Category.create([
+categories = Category.create([
   {name: 'Science'},
   {name: 'Music'},
   {name: 'Arts'},
@@ -19,10 +19,21 @@ Category.create([
   {name: 'Programming'}
 ])
 
+PASSWORD: ‘pass123’
+
+User.create([
+  {first_name: 'Jon', last_name: 'Snow', email: 'js@winterfell.gov', password: PASSWORD},
+  {first_name: 'Deanarys', last_name: 'Targaryan', email: 'danny@somewhere.gov', password: PASSWORD},
+  {first_name: 'Cercei', last_name: 'Lannister', email: 'c@wkingslanding.gov', password: PASSWORD}
+])
+
+
 100.times do
   Question.create title: Faker::Hacker.say_something_smart,
                   body:  Faker::Hipster.paragraph,
-                  view_count: rand(1000)
+                  view_count: rand(1000),
+                  user: users.sample,
+                  category: categories.sample
 end
 
 questions = Question.all
@@ -33,5 +44,5 @@ questions.each do |q|
   end
 end
 
-puts Cowsay.say 'Created 200 questions', :cow
+puts Cowsay.say 'Created 100 questions', :cow
 puts Cowsay.say "Created #{Answer.all.count} answers! ð©", :ghostbusters

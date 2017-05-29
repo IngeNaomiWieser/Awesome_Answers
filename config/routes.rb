@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
 
-  # the order in the routes.rb file is important, it's basically first come
-  # first served which means the first URL that matches your request will be the
-  # one that will get used.
+  #When you put routes in Rails within a 'namespace' all the urls/paths will be prepended with '/'' + the namespace so in this example all the routes defined will be prepended with '/admin'. Also, when you defined 'resources' inside, it will look for the corresponding controllers in a subfolder that mathches the namespace you provided ,so in this case Reils will look for the UsersController defined within the 'amdin' folder.
+  namespace :admin do
+    resources :users, only: :index
+  end
+
+  resources :sessions, only: [:new, :create] do
+    # when you define a route with `on: :collection` option,
+    # it skips requiring an :id
+    delete :destroy, on: :collection
+  end
+  resources :users, only: [:new, :create]
 
   # /questions/5/answers <- POST
   # /questions/5/answers <- GET
@@ -23,19 +32,23 @@ Rails.application.routes.draw do
   # get('/questions/:id/edit', { to: 'questions#edit', as: :edit_question })
   # patch('/questions/:id', { to: 'questions#update' })
   # delete('/questions/:id', { to: 'questions#destroy' })
-  #
+
+  # the order in the routes.rb file is important, it's basically first come
+  # first served which means the first URL that matches your request will be the
+  # one that will get used.
+
   get('/contact', { to: 'welcome#contact' })
 
-  post('/contact_submit', { to: 'welcome#submit'})
+  post('/contact_submit', { to: 'welcome#submit' })
 
   # in the line below ð we're defining a route that says: when we receive a GET
   # (http) requests with URL (from HTTP as well) that is `/` then handle that
   # request in the `WelcomeController` using the `index` action
-  # The `as` option will define a route helper method that can be used in the
+  # the `as` option will define a route helper method that can be used in the
   # view files to auto-generate the URL portion of the route defined here.
-  # You will have two methods generated: home_path and home_url. The method with
+  # you will have two methods generated: home_path and home_url. The method with
   # _path will generate a relative path (no domain name) and the mehtod with
-  # _url will generate an absolute path (with domain name, so from somewhere else)
+  # _url will generate an absolute path (with domain name)
   get '/', to: 'welcome#index', as: 'home'
 
   # get('/', { to: 'welcome#index' })

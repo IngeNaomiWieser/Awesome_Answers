@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
+
+  match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => [:get, :post]
+
+  # get 'sessions/new'
 
   #When you put routes in Rails within a 'namespace' all the urls/paths will be prepended with '/'' + the namespace so in this example all the routes defined will be prepended with '/admin'. Also, when you defined 'resources' inside, it will look for the corresponding controllers in a subfolder that mathches the namespace you provided ,so in this case Reils will look for the UsersController defined within the 'amdin' folder.
   namespace :admin do
